@@ -1,0 +1,81 @@
+name: Check MCP URLs
+
+# Liveness check for the http/sse MCP server URLs declared in .mcp.json.
+# Catches typos and upstream endpoints that disappear after merge.
+#
+# What counts as "alive": anything proving the hostname/path resolves to a
+# server. 401/403/405/5xx all pass — auth and method errors are expected
+# without credentials. Only 404/410 and connection/DNS/TLS failures fail.
+# Empty URLs are per-instance servers resolved at connect time and are skipped.
+# Only well-formed server names and http(s) URLs are probed, so a value from a
+# PR can never reach curl as an option or the log as a workflow command.
+
+# `check` is a required status check on main, so it must report on every PR.
+# Do not add a `paths:` filter here: a PR that touches none of the listed
+# paths would never get a `check` result and could not merge.
+
+on:
+  pull_request:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe MCP server URLs
+        run: |
+          set -euo pipefail
+
+          probe() {
+            local url="$1" code
+            code="$(curl -sS -o /dev/null -w '%{http_code}' \
+                      --connect-timeout 10 --max-time 10 --retry 2 --retry-delay 2 \
+                      -L -I -- "$url" 2>/dev/null)" || code="000"
+            # MCP endpoints typically reject HEAD but answer a JSON-RPC POST.
+            if [[ "$code" == "000" || "$code" == "404" || "$code" == "405" ]]; then
+              code="$(curl -sS -o /dev/null -w '%{http_code}' \
+                        --connect-timeout 10 --max-time 10 --retry 2 --retry-delay 2 \
+                        -L -X POST -H 'Content-Type: application/json' \
+                        -H 'Accept: application/json, text/event-stream' \
+                        --data '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
+                        -- "$url" 2>/dev/null)" || code="000"
+            fi
+            case "$code" in
+              000)     echo "FAIL  $code  unreachable"; return 1 ;;
+              404|410) echo "FAIL  $code  gone"; return 1 ;;
+              *)       echo "PASS  $code"; return 0 ;;
+            esac
+          }
+
+          failures=0
+          printf '%-22s %-60s %s\n' "SERVER" "URL" "RESULT"
+          while IFS=$'\t' read -r server url; do
+            if [[ "$url" == *'${'* || "$url" == *'{{'* ]]; then
+              printf '%-22s %-60s %s\n' "$server" "$url" "SKIP  templated"; continue
+            fi
+            result="$(probe "$url")" || true
+            printf '%-22s %-60s %s\n' "$server" "$url" "$result"
+            if [[ "$result" == FAIL* ]]; then
+              failures=$((failures + 1))
+              echo "::error::MCP server '$server' is unreachable: $url ($result)"
+            fi
+          done < <(jq -r '.mcpServers | to_entries[]
+                     | select(.value.type == "http" or .value.type == "sse")
+                     | select(.value.url | type == "string" and . != "")
+                     | select(.key | test("^[A-Za-z0-9._-]+$"))
+                     | select(.value.url | test("^https?://[^[:space:]]+$"))
+                     | "\(.key)\t\(.value.url)"' .mcp.json)
+
+          echo
+          if (( failures > 0 )); then
+            echo "::error::$failures MCP server URL(s) failed liveness check."; exit 1
+          fi
+          echo "All MCP server URLs reachable."
