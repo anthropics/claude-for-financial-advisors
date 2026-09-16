@@ -25,20 +25,26 @@ Each skill pulls from whichever connectors are live and falls back to paste/uplo
 
 ## Connectors
 
+Each skill pulls from whichever connectors are live and falls back to paste/upload when a system isn't connected. Every write to a client system pauses for advisor approval.
+
 | Connector | What it does |
 | :---- | :---- |
 | Addepar | Brings investment intelligence into Claude, giving advisors governed access to portfolio data, analytics and workflows across public and private markets. |
 | BlackRock | Brings Advisor Center’s portfolio analytics, model portfolios, and investment research resources to advisors through Claude. |
+| Black Diamond | Brings portfolio, performance, holdings and rebalancing data into Claude, so advisors can review their book, spot clients out of tolerance, surface tax loss harvesting opportunities, and generate client reports, tasks and rebalance sessions with their approval. |
 | Envestnet Tamarac | Brings portfolio and performance reporting, including reconciliation status, from Tamarac into Claude so that advisors can conduct household reviews, drift checks, and meeting prep. |
 | iCapital | Brings a client’s alternatives book into Claude, with holdings and performance across private funds, so advisors can see NAV against commitments, unfunded capital, recent calls, and distributions alongside the liquid portfolio. |
 | MoneyGuide | Brings a household's financial plan into Claude — net worth, probability of success, and goals. |
 | Orion Advisor Solutions | Brings portfolio and performance reporting from Orion Connect, and client records from Redtail CRM, into Claude so that advisors can conduct household reviews, drift checks, and meeting prep. |
+| Vanguard | Brings information on its model portfolios and advisor investment solutions into Claude, so advisors can draw on Vanguard's trusted research, portfolio construction, and asset allocation expertise when making decisions for clients. |
 | Wealthbox | Connects Claude to client records and meeting history to power onboarding, meeting prep, and follow-up. |
 | Wealth.com | Gives Claude a structured view of each client’s estate plan, including trust and will summaries, and the full balance sheet, so advisors can begin document review using an organized summary of available information instead of a binder full of documents. |
 | Zocks | Brings Claude the client intelligence it captures from every conversation, including profiles, goals, life events, and commitments. |
 | Schwab *(coming soon)* | Custodial account, titling, and beneficiary data for the estate and rebalance reviews. The connector is not yet available; skills that reference Schwab note that and fall back to paste or upload until it lands. |
 
 These join other connectors already available in Claude, including Microsoft 365, Salesforce, Box, FactSet, S\&P Global, Morningstar, and more.
+
+The Claude for Financial Advisors plugin, which bundles advisor skills and connectors into a single install, has been tested with BlackRock, Charles Schwab, Addepar, Envestnet, iCapital, Orion, Wealthbox, Wealth.com and Zocks, and advisors choose which of these to connect during guided setup. Some partners also offer their own plugins: BlackRock is launching one for Advisor Center, joining existing plugins from S\&P Global and LSEG.
 
 ## Installation
 
