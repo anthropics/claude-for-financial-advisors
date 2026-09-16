@@ -91,6 +91,14 @@
     "zoom": {
       "type": "http",
       "url": "https://mcp.zoom.us/mcp/zoom/streamable"
+    },
+    "black-diamond": {
+      "type": "http",
+      "url": "https://bd3.bdreporting.com/mcp"
+    },
+    "vanguard-advisor-tools": {
+      "type": "http",
+      "url": "https://mcp.vanguard.com/advisors"
     }
   }
 }
