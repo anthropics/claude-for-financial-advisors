@@ -17,4 +17,4 @@
 **Total across all accounts:** $[X] — or "— not shown on file provided" if any account's value couldn't be read.
 
 ---
-*This confirms what was received and reviewed. It is not an investment proposal, allocation recommendation, fee quote, or performance projection — those come separately once the full proposal is built. Reviewed for compliance before sending: [ ] yes / [ ] pending.*
+*This confirms what was received and reviewed. It is not an investment proposal, allocation recommendation, fee quote, or performance projection — those come separately once the full proposal is built.*

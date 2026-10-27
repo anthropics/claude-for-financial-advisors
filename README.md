@@ -17,30 +17,38 @@ Educational and operational support for advisors; not investment, legal, or tax 
 | `/post-meeting` | Turns a meeting artifact or transcript into a CRM note. |
 | `/compliance` | Pre-checks client-facing material against SEC Marketing Rule, antifraud, books-and-records, and Reg BI; produces a findings table, suggested disclosures, and a clean redraft. |
 | `/prospect-intake` | Normalizes a prospect's statements into a summary, an analyst handoff, and a what-to-expect memo. |
-| `/portfolio-rebalance-review` | Reviews performance, drift vs. IPS or model, and model mapping; lays out tax-aware rebalance scenarios for the advisor to evaluate, and drafts a memo documenting the advisor’s rationale. |
-| `/alts-brief` | Meeting-ready read on a household's alternative investments sized against the liquid book. |
+| `/portfolio-rebalance-review` | Reviews performance, drift vs. IPS or model, and model mapping; drafts a tax-aware rebalance plan for the advisor to evaluate, with alternatives on request, and a memo documenting the advisor’s rationale. |
+| `/alts-brief` | Meeting-ready read on a household's alternative investments, sized against the liquid book. |
 | `/estate-and-tax-brief` | Cross-checks the estate plan against actual account titling and beneficiaries; prior-year tax look-back; optional CRM follow-up tasks. |
 
 Each skill pulls from whichever connectors are live and falls back to paste/upload when a system isn't connected. Every write to a client system pauses for advisor approval.
 
 ## Connectors
 
-Each skill pulls from whichever connectors are live and falls back to paste/upload when a system isn't connected. Every write to a client system pauses for advisor approval.
-
 | Connector | What it does |
 | :---- | :---- |
+| 55ip | J.P. Morgan Asset Management (55ip) extends tax transition technology to Claude, so advisors can evaluate the tax impact of moving a client's holdings into a new portfolio. |
 | Addepar | Brings investment intelligence into Claude, giving advisors governed access to portfolio data, analytics and workflows across public and private markets. |
 | BlackRock | Brings Advisor Center’s portfolio analytics, model portfolios, and investment research resources to advisors through Claude. |
 | Black Diamond | Brings portfolio, performance, holdings and rebalancing data into Claude, so advisors can review their book, spot clients out of tolerance, surface tax loss harvesting opportunities, and generate client reports, tasks and rebalance sessions with their approval. |
+| CAIS | CAIS opens its alternative investment platform to advisors in Claude, so they can query fund data, review manager and fund performance, and see a client's public and private holdings together. |
+| Conquest Planning | Conquest brings its Strategic Advice Manager planning engine into Claude so advisors can create new client plans, review and apply strategies, update existing plans and prepare for client meetings all in one place. |
 | Envestnet Tamarac | Brings portfolio and performance reporting, including reconciliation status, from Tamarac into Claude so that advisors can conduct household reviews, drift checks, and meeting prep. |
+| FINNY | FINNY, the growth and prospecting platform, connects Claude to an advisor's campaign results by channel and sequence step, and lets advisors enrich prospect lists from their CRM, or upload new lists directly in Claude. |
+| Flourish Financial | Flourish connects Claude to financial advisors’ books of business, enabling them to work with client information, check rates, manage invitations, and prepare for client meetings, all within Claude. |
+| Franklin Templeton | Franklin Templeton provides publicly approved fund and share-class information in Claude, including performance, fees, NAV, holdings, distributions, and fund documents, along with its published market and investment insights. |
 | iCapital | Brings a client’s alternatives book into Claude, with holdings and performance across private funds, so advisors can see NAV against commitments, unfunded capital, recent calls, and distributions alongside the liquid portfolio. |
+| Invesco | Invesco brings portfolio intelligence and practice management insights into Claude through its Invesco for Advisors connector. |
+| Jump | Jump, an AI platform for financial professionals, gives Claude client context (meetings, documents, tasks) and Jump-built skills that prepare next steps for the advisor’s review. |
 | MoneyGuide | Brings a household's financial plan into Claude — net worth, probability of success, and goals. |
+| MSCI | MSCI brings its proprietary data and analytics into Claude, so wealth firms can assess investment options across public and private markets, monitor performance, and evaluate rebalancing opportunities. |
+| Nevis | Nevis, the AI platform for wealth management, draws on client information from meetings, documents, and communications to support meeting prep and follow-up in Claude. |
 | Orion Advisor Solutions | Brings portfolio and performance reporting from Orion Connect, and client records from Redtail CRM, into Claude so that advisors can conduct household reviews, drift checks, and meeting prep. |
+| Schwab *(coming soon)* | Custodial account, titling, and beneficiary data for the estate and rebalance reviews. The connector is not yet available. |
 | Vanguard | Brings information on its model portfolios and advisor investment solutions into Claude, so advisors can draw on Vanguard's trusted research, portfolio construction, and asset allocation expertise when making decisions for clients. |
 | Wealthbox | Connects Claude to client records and meeting history to power onboarding, meeting prep, and follow-up. |
 | Wealth.com | Gives Claude a structured view of each client’s estate plan, including trust and will summaries, and the full balance sheet, so advisors can begin document review using an organized summary of available information instead of a binder full of documents. |
 | Zocks | Brings Claude the client intelligence it captures from every conversation, including profiles, goals, life events, and commitments. |
-| Schwab *(coming soon)* | Custodial account, titling, and beneficiary data for the estate and rebalance reviews. The connector is not yet available; skills that reference Schwab note that and fall back to paste or upload until it lands. |
 
 These join other connectors already available in Claude, including Microsoft 365, Salesforce, Box, FactSet, S\&P Global, Morningstar, and more.
 
@@ -61,7 +69,7 @@ This repo is not actively monitored (see the maintenance status above). [CONTRIB
 
 To report a security vulnerability, see [SECURITY.md](SECURITY.md).
 
-**Security considerations.** The skills and agents here are instructions, not code. Some guardrails are structural: the file-parsing subagents are allowlisted to read-only tools, and the connector-reading subagents are denied shell, file-write, and web tools. The rest (advisor approval before any write, connector-reading subagents never calling a connector's write or send tools, arithmetic in a shell that never sees document text) are enforced by the model following them, not by the runtime. Subagents read content from third parties: prospect statements, client emails, CRM notes, testimonials. Treat that content as untrusted. If you adapt these agents, keep the read-only and shell rules in place, prefer connectors that expose read-only tools, and do not widen any agent's tool list without reviewing what it ingests.
+**Security considerations.** The skills and agents here are instructions, not code. Some guardrails are structural: the file-parsing subagents are allowlisted to read-only tools, and the connector-reading subagents are denied shell, file-write, and web tools. The rest (advisor approval before any write, connector-reading subagents never calling a connector's write or send tools, arithmetic in a shell that never sees document text) are enforced by the model following them, not by the runtime. Subagents read content from third parties: prospect statements, client emails, CRM notes, testimonials. Treat that content as untrusted. That rule is written into each extracting agent, and into `post-meeting` and `compliance`, whose main-conversation input is itself instruction-shaped; a value taken from such content is escaped in a table cell and stored as text, never as a formula, in a spreadsheet conversion. If you adapt these agents, keep the read-only and shell rules in place, prefer connectors that expose read-only tools, and do not widen any agent's tool list without reviewing what it ingests.
 
 ## Disclosure
 **Important Information: For Financial Professional Use Only**  
