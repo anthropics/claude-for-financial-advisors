@@ -132,6 +132,10 @@
       "type": "http",
       "url": "https://mcp.msci.com/mcp/v1.0/mcp"
     },
+    "schwab": {
+      "type": "http",
+      "url": "https://agent.schwabinstitutional.com/mcp"
+    },
     "nevis": {
       "type": "http",
       "url": "https://app.neviswealth.com/mcp"
