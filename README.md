@@ -44,7 +44,7 @@ Each skill pulls from whichever connectors are live and falls back to paste/uplo
 | MSCI | MSCI brings its proprietary data and analytics into Claude, so wealth firms can assess investment options across public and private markets, monitor performance, and evaluate rebalancing opportunities. |
 | Nevis | Nevis, the AI platform for wealth management, draws on client information from meetings, documents, and communications to support meeting prep and follow-up in Claude. |
 | Orion Advisor Solutions | Brings portfolio and performance reporting from Orion Connect, and client records from Redtail CRM, into Claude so that advisors can conduct household reviews, drift checks, and meeting prep. |
-| Schwab *(coming soon)* | Custodial account, titling, and beneficiary data for the estate and rebalance reviews. The connector is not yet available. |
+| Schwab | Brings custodial data from Schwab into Claude: accounts, balances, positions and their lots, transactions, and alerts. |
 | Vanguard | Brings information on its model portfolios and advisor investment solutions into Claude, so advisors can draw on Vanguard's trusted research, portfolio construction, and asset allocation expertise when making decisions for clients. |
 | Wealthbox | Connects Claude to client records and meeting history to power onboarding, meeting prep, and follow-up. |
 | Wealth.com | Gives Claude a structured view of each client’s estate plan, including trust and will summaries, and the full balance sheet, so advisors can begin document review using an organized summary of available information instead of a binder full of documents. |
