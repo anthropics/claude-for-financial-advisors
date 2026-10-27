@@ -1,16 +1,24 @@
 # Quarterly Review Prep — Jordan & Casey Miller
 
 > **Fictional sample client.** Every name, figure, and date in this document is
-> illustrative and drawn from no system. This is the tutorial deliverable for
-> onboarding's Step 7 — it shows what `/pre-meeting` produces for a real
-> household once your systems are connected. Nothing here was pulled from, or
-> should ever be written to, any connected tool.
+> illustrative and drawn from no system. It is a sample of what `/pre-meeting`
+> produces for a real household once your systems are connected. Nothing here
+> was pulled from, or should ever be written to, any connected tool.
 
-**If you only read one thing:** the Millers are three to five years from
-retirement, slightly ahead of plan, and overweight equities after a strong
-quarter. The meeting should confirm the rebalance, open the Roth conversion
-conversation while Jordan's income is down, and close out the umbrella policy
-review that's been open since spring.
+## Executive Summary
+
+The Millers are three to five years from retirement. Equities sit 5 points
+above the assigned model 60/35/5 — outside it — and the portfolio trailed its
+blended benchmark by 0.3 points this quarter. The meeting is likely to turn on
+whether to rebalance, a Roth conversion while Jordan's consulting income is
+down, and the umbrella policy review that's been open since spring.
+
+## Data Note
+
+- **Sources and as-of:** CRM and portfolio platform, as of 2026-09-25; meeting notes, meetings through 8/02; email, through 9/25; planning platform, plan last updated 2026-05-14; portfolio analytics platform, run 2026-09-25.
+- **Analytics subject:** built from today's holdings, saved as *Miller — Pre-Meeting 2026-09-25*.
+- **Figures computed on:** $2.4M. Nothing excluded.
+- **Reference:** assigned model 60/35/5, as of 2026-06-30.
 
 ---
 
@@ -51,15 +59,18 @@ IRA ($310K), cash management ($110K).
 
 ## 4. Portfolio Review
 
-*On a real client: performance, drift, and flows pulled from your portfolio platform (Orion, Addepar, or Tamarac).*
+*On a real client: performance, drift, and flows pulled from your portfolio platform (Orion Connect, Addepar, or Envestnet/Tamarac).*
+
+**Performance (net of fees, as the platform reports it):**
 
 | | QTD | YTD |
 |---|---|---|
 | Portfolio | +3.8% | +9.2% |
 | Blended benchmark (60/35/5) | +4.1% | +9.6% |
+| +/- | −0.3% | −0.4% |
 
-Trailing the benchmark slightly — driven by the cash position and an
-underweight in international equity. Say so plainly; don't bury it.
+Trailing the blended benchmark, driven by the underweight in international
+equity, the top detractor the portfolio platform reports.
 
 | Asset class | Target | Actual | Drift |
 |---|---|---|---|
@@ -70,35 +81,60 @@ underweight in international equity. Say so plainly; don't bury it.
 Cash: $110K (4.6% of AUM including the cash management account). No large
 flows this quarter.
 
+**Current positioning:** equity sleeve is US-heavy — roughly 80/20 domestic to
+international against the model's 70/30 — with the underweight concentrated in
+developed Europe. Sector mix inside that sleeve leans technology. Fixed income
+is entirely domestic, as it is for most US households.
+
+*On a real client: the three reads below come from your portfolio analytics and
+risk platform, folded in on the doc's first pass.*
+
+**Portfolio analytics:**
+- *Volatility & risk drivers:* 11.2% annualised, driven by the equity overweight
+  and the technology concentration — outside the 60/35/5 model's profile.
+- *Stress test impact:* a hypothetical 2022-style rate shock on current
+  holdings, not a forecast, costs an estimated 14.8%, about $355K, worse than
+  the model by 2.1 points — outside the model's profile.
+- *Allocation vs. closest model:* nearest match is Moderate Growth 65/35; the
+  household sits 5 points above its assigned 60/35/5 on equity.
+
 ## 5. Planning Opportunities
 
-- **Rebalance:** equities +5% over target after the run-up — trimming now also
-  harvests ~$14K in long-term gains at a favorable bracket this year.
-- **Roth conversion window:** Jordan's consulting income is down this year;
-  a partial conversion before Social Security starts is worth modeling.
+- **Rebalance:** equities 5 points over the 60/35/5 target — discuss whether to
+  rebalance. A trim would realize gains: the portfolio platform shows about
+  $14K of unrealized long-term gains in the overweight positions.
+- **Roth conversion:** Jordan's consulting income is down this year; a partial
+  conversion before Social Security starts is worth modeling.
 - **529 funding:** the grandchild question from July — comparison is ready.
 - **59½ next year (Casey):** penalty-free access begins; no action, just flag.
+
+**Plan snapshot** (planning platform, plan last updated 2026-05-14): Net worth
+$3.2M — $3.5M assets, $0.3M liabilities · Probability of success 81% · Goals:
+Retirement — $150,000 a year, starting 2030
 
 ## 6. Proposed Agenda (45 min)
 
 1. How you're both feeling — Casey's work news, the new grandchild *(10 min)*
-2. Portfolio and rebalance recommendation *(15 min)*
+2. The quarter, the equity drift, and whether to rebalance *(15 min)*
 3. Roth conversion opportunity *(10 min)*
 4. Open items: umbrella policy, 529 *(5 min)*
 5. Next steps *(5 min)*
 
 ## 7. Talking Points & Anticipated Questions
 
-- The plan is on track — retirement between 2029 and 2031 still funds at the
-  spending level we set, even with this quarter's slight trail.
-- Expect: "Why are we behind the benchmark?" — cash drag plus international
-  underweight; the same positioning cushioned the spring pullback.
-- Expect: "Should we take Social Security at 62?" — the analysis says waiting
-  wins if either of you works past 63; bring the breakeven chart.
+- The quarter trailed the blended benchmark by 0.3 points, driven by the
+  international underweight — say so first, and plainly.
+- The plan as the planning platform last ran it, in May: an 81% probability of
+  success, with retirement starting in 2030.
+- Expect: "Why are we behind the benchmark?" — the equity sleeve holds about
+  80/20 domestic to international against the model's 70/30.
+- Expect: "Should we take Social Security at 62?" — claiming age is worth
+  modelling in the planning software, including how long either of you expects
+  to keep working.
 
 ## 8. Action Items Draft
 
-- [ ] Confirm rebalance and execute per the trade policy
-- [ ] Model partial Roth conversion; send summary by month-end
+- [ ] Rebalance decision — confirm in meeting
+- [ ] Model partial Roth conversion; send summary
 - [ ] Deliver 529 comparison
 - [ ] Close umbrella policy review with quote decision

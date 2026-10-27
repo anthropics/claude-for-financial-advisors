@@ -22,7 +22,7 @@
 ## 3. Inferred vs. Read
 | Figure | Source |
 |---|---|
-| [account/holding/value] | [read off file — cite file] / [inferred — explain how] |
+| [account/holding/value] | [read off file — cite file] / [from [tool]'s record of the [date] conversation] / [inferred — explain how] |
 
 ---
 *Internal document for the analyst team building the full proposal. Does not route through /compliance.*

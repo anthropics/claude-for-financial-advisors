@@ -1,15 +1,19 @@
 # SEC Compliance Checklist for Client-Facing Content
-*Reference for the Claude for Financial Advisors compliance skill. First pass drafted July 2026 — verify against current SEC guidance (sec.gov Marketing Rule FAQ, Division of Examinations Risk Alerts) for high-stakes reviews.*
+*Reference for the Claude for Financial Advisors compliance skill. Snapshot of the rules as of July 2026 — verify against current SEC guidance (sec.gov Marketing Rule FAQ, Division of Examinations Risk Alerts) for high-stakes reviews.*
 
 ## 1. Scope Determination
 
-- [ ] Is the sender an SEC-registered RIA, state-registered adviser, or dual registrant (RIA + BD)?
+- [ ] Is the sender an SEC-registered RIA, state-registered adviser, dual registrant (RIA + BD), or broker-dealer only? That decides which rules govern. The Marketing Rule's checks are the advertisement test below and sections 2–4; section 5 applies to every firm type:
+  - **SEC-registered RIA**: Rule 206(4)-1 (the Marketing Rule, which binds advisers registered or required to be registered with the SEC) and Section 206
+  - **Dual registrant**: both, plus FINRA 2210 and Reg BI (section 8)
+  - **State-registered adviser**: Section 206; the state's own advertising rule governs, so the Marketing Rule's checks run as a proxy and the CCO should check the state's rule
+  - **Broker-dealer only**: FINRA 2210 and Reg BI (section 8); the Marketing Rule's checks and Section 206 are not applicable
 - [ ] Is the communication an **advertisement** under Rule 206(4)-1?
   - Direct or indirect communication to **more than one person** offering advisory services, OR
   - To **one or more persons** if it includes hypothetical performance (unless in response to an unsolicited request or to a private fund investor in a one-on-one), OR
   - Any **compensated testimonial or endorsement** (cash or non-cash)
 - [ ] Exclusions: extemporaneous live oral communications; information in regulatory filings; most one-to-one communications without hypothetical performance
-- [ ] Even if NOT an advertisement: Section 206 antifraud duties (no untrue statements, no misleading omissions, disclose conflicts) apply to **all** client communications
+- [ ] Even if NOT an advertisement: Section 206 antifraud duties (no untrue statements, no misleading omissions, disclose conflicts) apply to **all** of an adviser's client communications
 
 ## 2. Seven General Prohibitions — 206(4)-1(a)
 
@@ -25,7 +29,7 @@ Flag any content that:
 ## 3. Performance Advertising
 
 - [ ] **Net performance** shown with at least equal prominence wherever gross is shown, same time period and methodology
-- [ ] Time-weighted returns include **1-, 5-, and 10-year** periods (or since inception if shorter), each ending on the most recent practicable date
+- [ ] Performance of any portfolio or composite (other than a private fund) includes **1-, 5-, and 10-year** periods (or the portfolio's life if shorter), each with equal prominence and ending no earlier than the most recent calendar year-end
 - [ ] No statement or implication that the SEC has **approved or reviewed** any performance calculation
 - [ ] **Related performance**: includes all related portfolios (or meets the carve-out criteria)
 - [ ] **Extracted performance**: provides (or offers to provide) results of the **total portfolio** it was extracted from
@@ -62,11 +66,11 @@ Adapt to the firm's approved language:
 ## 7. Books and Records — Rule 204-2
 
 - [ ] Retain a copy of every advertisement and communications relating to advice given or receipt/disbursement of funds/securities
-- [ ] Retention: **5 years** from end of the fiscal year of last use/dissemination, **first 2 years in an easily accessible place** (adviser's office)
+- [ ] Retention: **5 years** from end of the fiscal year of last use/dissemination, in an easily accessible place, **the first 2 years in an appropriate office of the adviser**
 - [ ] Retain substantiation backup for material claims of fact; questionnaires/surveys behind ratings; written agreements with promoters
 - [ ] **Off-channel communications**: business communications via personal text/WhatsApp/personal email that aren't captured by the firm's archive are a major SEC enforcement focus (multi-billion-dollar sweep across BDs and RIAs). All business comms must occur on approved, archived channels
 
-## 8. Dual Registrant Add-ons (if applicable)
+## 8. Broker-Dealer Rules (broker-dealer activity, including dual registrants)
 
 - [ ] **Reg BI** (recommendations to retail customers in a BD capacity): Disclosure, Care, Conflict of Interest, and Compliance obligations; Form CRS delivered
 - [ ] **FINRA Rule 2210**: retail communications fair and balanced, no exaggerated/unwarranted/misleading claims, principal approval and filing requirements for certain categories
@@ -74,5 +78,5 @@ Adapt to the firm's approved language:
 ## 9. Verdict Rubric
 
 - **Fail** — violates a general prohibition or a specific rule requirement as written; must be fixed before sending
-- **Flag** — likely fine with a disclosure, qualifier, or minor rewording; show the fix
-- **Note** — acceptable, but a best-practice improvement is available
+- **Flag** — a likely problem, or one that turns on context the review doesn't have, that a disclosure, qualifier, or rewording may resolve; show the fix
+- **Note** — acceptable as written, but worth the reviewer seeing; a best-practice improvement is available

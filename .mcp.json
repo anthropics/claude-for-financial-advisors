@@ -28,13 +28,17 @@
       "type": "http",
       "url": "https://s.icapitalnetwork.com/icapital/api/v1/icapital-mcp/mcp"
     },
+    "cais": {
+      "type": "http",
+      "url": "https://mcp.caisgroup.com/mcp"
+    },
     "moneyguide": {
       "type": "http",
       "url": "https://www.moneyguidepro.com/ifa/mcp"
     },
     "salesforce": {
       "type": "http",
-      "url": ""
+      "url": "https://api.salesforce.com/platform/mcp/v1/platform/headless-360"
     },
     "gmail": {
       "type": "http",
@@ -99,6 +103,42 @@
     "vanguard-advisor-tools": {
       "type": "http",
       "url": "https://mcp.vanguard.com/advisors"
+    },
+    "invesco": {
+      "type": "http",
+      "url": "https://financial-professional-mcp.invesco.com/mcp"
+    },
+    "conquest-planning": {
+      "type": "http",
+      "url": "https://api.conquest-cloud.com/mcp"
+    },
+    "finny": {
+      "type": "http",
+      "url": "https://mcp.finny.com/mcp"
+    },
+    "flourish-financial": {
+      "type": "http",
+      "url": "https://www.flourish.com/api/mcp/v2.0"
+    },
+    "franklin-templeton": {
+      "type": "http",
+      "url": "https://api.frk.com/mcp/v1/ft-funds-insights/mcp"
+    },
+    "jump": {
+      "type": "http",
+      "url": "https://my.jumpapp.com/mcp"
+    },
+    "msci": {
+      "type": "http",
+      "url": "https://mcp.msci.com/mcp/v1.0/mcp"
+    },
+    "nevis": {
+      "type": "http",
+      "url": "https://app.neviswealth.com/mcp"
+    },
+    "55ip": {
+      "type": "http",
+      "url": "https://mcp.55-ip.com/proposal-generation-mcp/mcp"
     }
   }
 }

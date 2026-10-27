@@ -20,9 +20,10 @@ here is a row you skipped, not a row you called wrong.
 ## What you are given
 
 - **Intended** — from the estate plan: trusts and what each is meant to hold,
-  and the intended owner/beneficiary for each major asset or account.
-- **Actual** — from the custodian and portfolio platforms: each account's real
-  registration/titling and named beneficiaries.
+  and who the plan says inherits what.
+- **Actual** — from the custodian, portfolio and alts platforms, or a system
+  standing in for the custodian: each account's real registration/titling and
+  named beneficiaries, with the system that returned each value.
 
 Either side may be incomplete. That is a finding, not a blocker.
 
@@ -41,8 +42,9 @@ trust the plan describes that owns nothing is the classic unfunded-trust
 finding, and it is invisible if you only iterate over the accounts that exist.
 
 Where a comparison cannot be made because one side's data is missing for that
-item, say so as its own row. Never omit an item silently; an absent row reads as
-a clean row.
+item, say so as its own row, with **Match?** reading "can't compare — [the side
+that's missing]". Never omit an item silently; an absent row reads as a clean
+row.
 
 Use `Bash` for any dollar arithmetic — shares of the estate, totals per trust. The shell is a calculator and nothing else: type the figures into the
 script yourself as numeric literals, never paste text from the file into a
@@ -71,18 +73,19 @@ has context you do not.
 ## Titling comparison — [household]
 accounts compared: N   intended items with no account found: N   uncomparable: N
 
-| Account / position | Intended per plan | Actual titling | Actual beneficiary | Match? |
-|--------------------|-------------------|----------------|--------------------|--------|
+| Account / Position | Intended per plan | Actual titling / beneficiary | Match? |
+|--------------------|-------------------|------------------------------|--------|
 
 ## Mismatches by tier
 ### High
 - [item] — [what disagrees, and the dollar amount if known]
 ### Medium
 ### Low
-
-## Uncomparable
-- [item] — missing [which side's data]
 ```
+
+The four columns, their headings and their order are the estate brief's own
+comparison table, so the lead can carry the table across as it stands: anything
+extra about a row goes after **Match?**, never between the columns.
 
 Never state that a mismatch is legally deficient, never recommend a fix, and
 never draft document or beneficiary-form language. You report the disagreement;
