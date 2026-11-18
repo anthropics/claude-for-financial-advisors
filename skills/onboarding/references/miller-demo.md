@@ -59,7 +59,7 @@ IRA ($310K), cash management ($110K).
 
 ## 4. Portfolio Review
 
-*On a real client: performance, drift, and flows pulled from your portfolio platform (Orion Connect, Addepar, or Envestnet/Tamarac).*
+*On a real client: performance, drift, and flows pulled from your portfolio platform (Orion Connect, Addepar, or Envestnet/Tamarac). Holdings, balances, and flows can also come from your custodian (Schwab).*
 
 **Performance (net of fees, as the platform reports it):**
 

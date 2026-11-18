@@ -1,11 +1,14 @@
 ---
 name: portfolio-rebalance-review
-description: Run a portfolio review for a client or household — performance pulled from the connected portfolio platform (Orion Connect, Addepar or Envestnet/Tamarac), allocation drift analysis vs. IPS or model portfolio, model-portfolio mapping, rebalance preparation with tax-aware rebalance opportunities to consider, and a rebalance rationale memo for the compliance file. Triggers on "portfolio review", "/portfolio-rebalance-review", "drift analysis", "rebalance [client]", "how is [client]'s portfolio positioned", "rebalance rationale", or "map [client] to a model".
+description: >-
+  Run a portfolio review for a client or household — performance pulled from the connected portfolio platform (Orion Connect, Addepar or Envestnet/Tamarac), holdings and tax lots from the custodian (Schwab), allocation drift analysis vs. IPS or model portfolio, model-portfolio mapping, rebalance preparation with tax-aware rebalance opportunities to consider, and a rebalance rationale memo for the compliance file. Triggers on "portfolio review", "/portfolio-rebalance-review", "drift analysis", "rebalance [client]", "how is [client]'s portfolio positioned", "rebalance rationale", or "map [client] to a model".
 ---
 
 # Portfolio Rebalance Review
 
 Review a client portfolio end to end: performance → drift → analytics → model mapping → rebalance prep → rebalance rationale memo, with a current-against-proposed comparison when the advisor asks for one.
+
+Handle client data the way @${CLAUDE_PLUGIN_ROOT}/partials/rules/client-data.md says.
 
 ## Inputs
 
@@ -26,7 +29,7 @@ Query the household's connected portfolio platform for:
 - Assigned model/target allocation and cash balances
 - Recent flows (contributions, distributions, RMD status)
 
-**Which system to query:** this data can live in the portfolio platform — Orion Connect, Addepar, or Envestnet/Tamarac — depending on the firm. Look for each platform's tools by its own name, the way the next paragraph says, to see which are actually connected — don't guess at tool-name prefixes — and read the rest of this step for what a gap means and what to do when more than one comes back.
+**Which system to query:** this data can live in the portfolio platform — Orion Connect, Addepar, or Envestnet/Tamarac — or in the custodian, for example Schwab, depending on the firm. A custodian covers account registrations, holdings, cost basis and tax lots, and recent flows. It doesn't cover performance, benchmarks or model/target allocations. It reports distributions but not RMD status. RMD status comes from the advisor or a manual source. Look for each platform's tools by its own name, the way the next paragraph says, to see which are actually connected — don't guess at tool-name prefixes — and read the rest of this step for what a gap means and what to do when more than one comes back.
 
 **Look for the tools before you trust the registry, or the advisor.** Your own tools are the check that decides: a system whose tools are in your tool list, or come back from a `ToolSearch` by the system's own name, is connected and callable — use them. Where the session offers `ToolSearch`, a system's tools can be held back until it loads them, so search by name for every system this review reads whose tools aren't already in your list, the analytics platform's included (Step 2b); where it offers none, nothing is held back, and your tool list is every tool you have. An advisor saying a system isn't connected, or that none is, doesn't decide it either, since advisors often don't remember what they connected: look for every system this way before you name any of them as not connected, and when you do, say it as what you found, not as what they told you. `ListConnectors` can answer "No installed connectors found" even in a session with several live, working connectors, and in some clients it renders a user-facing card rather than returning data at all. So it explains a gap, it never establishes one, and an empty result means **unknown**, never "nothing is connected". When it does return entries, read `enabledInChat`, not `connected`: `connected: true` with `enabledInChat: false` is authenticated but switched off for this chat, so tell the advisor they can enable it here rather than reporting it as unconnected; a missing or `null` `connected` is unknown, not disconnected.
 - **If none is connected**: follow the Connector Placeholder Convention — say *"This is where I'd make a call out to [system] to pull [holdings/performance], but it isn't connected in this session,"* then offer the fallback. Before asking for a manual upload, offer to search the firm's document store (for example @${CLAUDE_PLUGIN_ROOT}/partials/connectors/storage-examples.md) for an existing export or statement. If nothing turns up there either, ask the advisor to upload an export (CSV/PDF), a custodian statement, or paste holdings. Continue with whatever's provided, and mark anything still missing "— pending [connector]" rather than leaving it blank — a missing source degrades only the section that depends on it, not the whole review.
@@ -43,6 +46,8 @@ Query the household's connected portfolio platform for:
 
      Claude can't write those settings, so never offer to save it yourself or say you have. Then carry on with the review, in the platform they named only.
 
+  When the custodian is one of the systems in that question, say what each gives. Recommend neither. A custodian's figures cover only the accounts it holds. A household with accounts elsewhere gets partial totals from it.
+
   This check runs for the rest of the review, not just once up front — if the advisor brings up another source mid-review, ask before pulling from it too. And if a second system's figures get pulled anyway and disagree with the routed one on a material fact (a balance, a drift percentage), that's a blocking question for the advisor, not a note in the output.
 
 **Held-away accounts:** ask the advisor whether the household has accounts held away from this system (a spouse's 401k, assets at another custodian) relevant to wash-sale coordination or the overall allocation picture. If yes, request those holdings manually — there's no connector for outside accounts.
@@ -50,6 +55,15 @@ Query the household's connected portfolio platform for:
 **Addepar specifics:** query the portfolio data with lookthrough turned off for drift purposes. Lookthrough decomposition (fund → underlying constituents) is a separate risk-review lens — an IPS names sleeves at the fund-commitment level, and lookthrough silently returns an incompatible set of buckets with no warning. Group by `direct_owner`, not `account` — the latter is not a valid grouping key and errors. For tax-lot detail, pass a tax-lot value in `groupings` only if the live tool schema actually documents one — cost basis and lot-level fields are not confirmed to exist on every Addepar deployment. If the schema doesn't support it or the returned columns don't include cost basis, say so explicitly rather than presenting fabricated lot data; this feeds the same "Completeness" gate below.
 
 **A portfolio system that runs reports but returns no holdings** — its tools identify the household, list reports and run them, but return no structured holdings, cost basis or tax lots — is worked with the way @${CLAUDE_PLUGIN_ROOT}/partials/rules/report-only-systems.md says. If it is the only connected system, Step 1's ask-and-stop above is the answer.
+
+**A custodian** knows accounts and their owners but not households. Find the household's accounts the way @${CLAUDE_PLUGIN_ROOT}/partials/rules/account-only-systems.md says before pulling anything else. When the custodian is the routed system, it supplies the following:
+- Its positions supply holdings with quantity and market value.
+- Its tax lots supply per-lot cost, holding period and unrealized gain/loss for the short- vs. long-term split.
+- Each account's registration and tax status decide which accounts are taxable and which are tax-advantaged.
+
+Show each figure's as-of date. Say beside each household total that it covers the custodian's accounts only. A custodian's broad security type is not an asset-class sleeve. Never map it to one. Sleeves come from the IPS, the model or the advisor. With the custodian as the only source and no IPS or sleeve mapping on file, the data-sanity gate below returns `BLOCKING` for missing sleeve tags. That is the gate working correctly. Ask the advisor for the target allocation and a sleeve mapping, or for the IPS. Don't work out drift, even as a what-if, until the advisor has given that mapping or the IPS. Then continue to Step 2.
+
+**Every system you read yourself follows the plugin's provider file for it, where there is one.** Before your first call to a system, list `${CLAUDE_PLUGIN_ROOT}/providers/`. If it holds a folder named for that system, read every file in it. Follow it for the whole read.
 
 **Data-sanity gate — run before Step 2, don't skip.** Dispatch this to the `claude-for-financial-advisors:holdings-sanity` subagent — `Agent(claude-for-financial-advisors:holdings-sanity)`, in the foreground (`run_in_background: false`) so what it returns arrives as the call's result inside this turn — rather than working through it inline: hand it the holdings data, the reported portfolio/household value, and the sleeve structure from the IPS or model if one is on file. It returns a flag table with a `Contaminates` column naming which downstream figure each problem feeds, plus an explicit list of the checks that passed. If the dispatch errors, is refused because the concurrent-subagent limit is reached, or hasn't come back by the time you would otherwise end your turn, run the seven checks below yourself — never end your turn, or start Step 2, with the gate outstanding.
 
@@ -98,7 +112,7 @@ The reference, in order: the IPS band; then the assigned model's risk profile; t
 
 **IPS review cadence:** check the IPS's own "last reviewed" date against the firm's stated review cadence. If none is on file, default to flagging anything not reviewed in the last 12 months (a common industry norm for fiduciary accounts) and ask the advisor for the firm's actual policy — same pattern as the band default above. Note staleness alongside the drift table; don't block the rebalance on it.
 
-**Analysis-only path:** if the advisor asked for analysis only (see Inputs), the review ends after Step 2b — write the drift analysis using `templates/drift-analysis.md`, Executive Summary first, and skip Steps 3–5.
+**Analysis-only path:** if the advisor asked for analysis only (see Inputs), skip Steps 3–5 and go from Step 2b to Step 6, which writes the drift analysis on its own.
 
 ## Step 2b: Portfolio Analytics
 
@@ -128,7 +142,7 @@ Fund health goes with the holdings it describes, whichever read returns it — t
 
 **The platform's advisory fee colours its net figures.** Its analyses carry an advisor-level fee preference; state it in the Data Note beside the figures, and note where it differs from the net-of-fees basis Step 1's performance already uses. Never write it — changing that preference is a billing action, not an analysis artifact, and is out of scope.
 
-**Fold as three independently-omittable reads** into the drift analysis's Risk & Scenario Analysis section — **Volatility & Risk Drivers**, **Stress Test Impact** and **Allocation vs. Closest Model**. A read that didn't come back is omitted on its own and never drags the other two out.
+**Fold as three independently-omittable reads** into the drift analysis's Risk & Scenario Analysis section — **Volatility & risk drivers**, **Stress test impact** and **Allocation vs. closest model**. A read that didn't come back is omitted on its own and never drags the other two out.
 
 ## Step 3: Model-Portfolio Mapping
 
@@ -170,7 +184,7 @@ an advisor would deliver to a client.
 
 Identify the adjustments that would bring the household back to target, tax-aware. **Don't rebalance for rebalancing's sake** — drift within bands is fine, and tax costs can exceed the benefit; where it's close, show the breakeven. Check pending cash flows (contributions, withdrawals, RMDs) before any sell appears in the plan:
 - Rebalance in tax-advantaged accounts first (no tax consequences). If the household has none, say so explicitly in the plan and memo rather than silently skipping this.
-- In taxable accounts: avoid realizing large short-term gains; harvest available losses while rebalancing; watch wash sales (30-day window, across every household account whose holdings and transaction history you **actually gathered** — being connected is not the same as being gathered: a held-away account the advisor confirmed exists but never supplied holdings for sits outside that check, and so does a connected account whose feed returned no cost basis or tax-lot detail, the gap Step 1's Addepar note and Completeness check already record). Where the check couldn't reach the whole household, say so plainly: name the accounts it covered and the ones it didn't, and carry that same scope into the memo's wash-sale line rather than a bare "yes". Also flag any proposed sale at a loss paired with a buy of a fund tracking the same or a substantially similar index (for example BND → AGG), for the advisor or tax preparer to confirm. Never call a pairing safe.
+- In taxable accounts: avoid realizing large short-term gains; harvest available losses while rebalancing; watch wash sales (30-day window, across every household account whose holdings and transaction history you **actually gathered** — being connected is not the same as being gathered: a held-away account the advisor confirmed exists but never supplied holdings for sits outside that check, and so does a connected account whose feed returned no cost basis or tax-lot detail, the gap Step 1's Addepar note and Completeness check already record). Where the check couldn't reach the whole household, say so plainly: name the accounts it covered and the ones it didn't, and carry that same scope into the memo's wash-sale line rather than a bare "yes". Also flag any proposed sale at a loss paired with a buy of a fund tracking the same or a substantially similar index (for example BND → AGG), for the advisor or tax preparer to confirm. Never call a pairing safe. The 30-day window runs both before and after a sale. Where the holdings source reports that a position reinvests dividends or capital gains, check it for any position the options would sell at a loss. An automatic reinvestment inside the window can make that sale a wash sale. Where the source reports losses already disallowed under the wash-sale rule, mention them.
 - Check RMD status before an IRA sell appears in the plan — don't create a distribution shortfall, and prefer using an already-required RMD as the funding source for a needed sale over an unrelated one.
 - Where the draft plan sells from a concentrated position with a large embedded gain, note beside that row that the sale realizes the gain and forfeits any step-up in basis at death, for the advisor to weigh against the client's circumstances. Never estimate the client's holding horizon or health, and never let either decide whether a row is drafted.
 - Prefer directing pending contributions/cash to underweights over selling
@@ -213,19 +227,19 @@ Fold it into the drift analysis's Before / After section, alongside the allocati
 
 ## Step 5: Rebalance Rationale Memo
 
-Every rebalance gets a memo for the compliance file — it is a books-and-records item. Use `templates/rebalance-rationale-memo.md` in this skill's folder. It must state: client objective/IPS reference, what drifted and why, what is being changed and what each change addresses, and tax impact considered. Why each change serves the client's interest, why the benefits outweigh the costs, and the alternatives weighed are the advisor's own reasons: per the template's §3–§5, write them only as the advisor gave them in this conversation, never as this draft came up with them, and "— advisor to complete" otherwise. Leave the template's Approval table empty — nothing in this review establishes who approved a change, and the advisor and any reviewer the firm requires sign for themselves. Never fill in a name or a date there, and never describe the memo as approved.
+Every rebalance gets a memo for the compliance file — it is a books-and-records item. Read `templates/rebalance-rationale-memo.md` in this skill's folder before you write the memo, and keep its section headings and line labels as written. The memo must state: client objective/IPS reference, what drifted and why, what is being changed and what each change addresses, and tax impact considered. Where the household has no tax-advantaged accounts, the memo says so. Why each change serves the client's interest, why the benefits outweigh the costs, and the alternatives weighed are the advisor's own reasons: per the template's §3–§5, write them only as the advisor gave them in this conversation, never as this draft came up with them, and "— advisor to complete" otherwise. Leave the template's Approval table empty — nothing in this review establishes who approved a change, and the advisor and any reviewer the firm requires sign for themselves. Never fill in a name or a date there, and never describe the memo as approved.
 
 ## Step 6: Output
 
 Claude never appears in the file in the first person.
 
-Write everything to a markdown file first, opening with the drift analysis in `templates/drift-analysis.md`'s structure — its **Executive Summary** is the top of the file:
+Read `templates/drift-analysis.md` before you write, and keep its section headings and line labels as written. Write everything to a markdown file first, opening with the drift analysis in that template's structure — its **Executive Summary** is the top of the file:
 - Executive Summary: three or four sentences for the advisor — where the household stands against its reference and the one or two differences that matter most, each framed within or outside that reference and never as good or bad (Step 2). A figure with no reference reads "no stated reference on file", never "typical" or "high". When Step 4 produced a draft rebalance plan, say that it follows and which sleeves it addresses, and nothing about how well they would work or what they would cost. If the advisor shares any of it with a client, run that through **/compliance** first.
 - Drift analysis table
 - Risk & Scenario Analysis, and Further reads (if Step 2b ran)
-- The draft rebalance plan, with tax impact summary, followed directly by the before/after allocation comparison
+- The draft rebalance plan, with tax impact summary, followed directly by the before/after allocation comparison (if Step 4 ran)
 - Model mapping table (if Step 3 ran)
-- Rebalance rationale memo (using `templates/rebalance-rationale-memo.md`)
+- Rebalance rationale memo (using `templates/rebalance-rationale-memo.md`, if Step 5 ran)
 
 **Summary-First Convention:** open the chat response with the same Executive Summary that opens the file — the same sentences, not a paraphrase or a second written for chat — then offer two to four directions to go deeper. The tables stay in the file. **Only offer directions this run can actually deliver** — an analysis-only pass has no plan or memo to go deeper into, a run where Step 2b didn't happen because the platform isn't connected offers the analytics as something that could be run rather than something waiting to be shown, and a run without the advisor's agreement to the save offers neither the analytics nor anything that reads them. The directions and the export question are the reply's closing pair, with nothing between them.
 

@@ -9,7 +9,7 @@
 ## Data Note
 - **Sources and as-of:** [each system read, the as-of date it states, and any source link its read returned]
 - **Analytics subject:** [the saved portfolio the analytics ran on — name and date — or "built from today's holdings". Omit when no analytics ran.]
-- **Figures computed on:** [$ total, and what it excludes — any position proxied or left out at the advisor's direction, named, with its value. Omit when nothing was excluded.]
+- **Figures computed on:** [$ total, and what it excludes — any position proxied or left out at the advisor's direction, named, with its value. An account outside the confirmed set is not an exclusion. Never name it here. Omit when nothing was excluded.]
 - **Reference:** [IPS dated [date] | assigned model [name], as of [date] | stated tolerance captured by [the meeting-intelligence tool] | no stated reference on file] — *every figure that carries a reference, the Executive Summary included, names it in exactly this form.*
 - **Fee basis:** [only when a read carrying the analytics platform's own advisory-fee assumption is included — say what that assumption is and how it differs from the performance below. Omit otherwise.]
 
@@ -19,6 +19,7 @@
 | Household | [names, ages] |
 | Client since | [year] · Last review: [date] |
 | Total AUM | $[X] across [N] accounts |
+| Accounts | [each by masked number: registration type, title and date opened, per [source]] |
 | Risk profile / IPS target | [e.g., Moderate Growth — 70/30] |
 
 ## 2. Relationship Signals
@@ -38,6 +39,8 @@
 **Notable correspondence (last [timeframe-appropriate window]):**
 - [date] — [summary; any open request]
 
+**Open account alerts:** [alerts needing a reply or marked urgent, per [custodian], with masked account number] · *(no custodian connected → omit this line, never "pending")*
+
 ## 4. Portfolio Review
 **Performance ([net of fees | gross of fees], as the platform reports it):**
 
@@ -49,15 +52,19 @@
 
 **Drivers:** Top contributors: [ ] · Top detractors: [ ]
 
+**Holdings:** [positions by account, with market value and share of the account, per [source]]
+
 **Allocation vs. target:**
 
 | Asset Class | Target | Current | Drift | Note |
 |---|---|---|---|---|
 | | | | | |
 
-**Cash & flows:** [cash %, large deposits/withdrawals this period]
+**Cash & flows:** [cash %, large deposits/withdrawals this period] · **Scheduled transfers:** [recurring and upcoming, per [custodian]] *(no custodian connected → omit "Scheduled transfers", never "pending")*
 
-**Alts held away:** [N positions for [household], per [alts platform] · [the platform's own total, as of [date(s)], where it gave one] · upcoming capital calls: [each with amount and due date, as returned | not available from [alts platform], in its own words where it gave any] — not in AUM/drift above; see /alts-brief] · nothing found: [Nothing found in [alts platform] for [household] — searched [what the read reports it searched] | for a count of none: asked [what you asked the read for]] · check failed: [not checked — run /alts-brief if the household holds alts] · *(no alts platform connected → omit this line, never "pending")*
+**Gains:** [unrealized gain/loss by account, and realized gain/loss for the period, per [source]]
+
+**Alts held away:** [N positions for [household], per [alts platform] · [the platform's own total, as of [date(s)], where it gave one] · upcoming capital calls: [each with amount and due date, as returned | not available from [alts platform], in its own words where it gave any] — not in AUM/drift above; see /alts-brief] · nothing found: [Nothing found in [alts platform] for [household] — searched [what the read reports it searched] | for a count of none: asked [what you asked the read for]] · check failed: [not checked — run /alts-brief if the household holds alts] · *(no alts platform read in this check → omit this line entirely. Never write "pending" or a sentence saying no platform is connected.)*
 
 **Current positioning:** [a short summary, not a table — geography read within the sleeves, and sector or sub-asset class within each sleeve. The bridge between the allocation data above and the analytics below.]
 
@@ -74,7 +81,7 @@
 
 ## 5. Planning Opportunities
 - [ ] Rebalance: [drift against the reference, per the portfolio platform — for discussion]
-- [ ] Tax-loss harvesting: [positions with unrealized losses the portfolio platform returned — for discussion]
+- [ ] Tax-loss harvesting: [positions with unrealized losses the portfolio platform or custodian returned — for discussion]
 - [ ] Roth conversion: [what the data shows, e.g. an income change noted in the CRM — worth modelling]
 - [ ] RMD / QCD planning: [if applicable]
 - [ ] 529 funding: [status / opportunity]
@@ -87,7 +94,7 @@
 
 **Tax snapshot** ([estate platform], tax year [YYYY]): Filing status [ ] · AGI $[X] · Taxable income $[X] · Federal tax $[X] · State tax $[X] · Capital gains $[X] · Dividends $[X] · Deductions $[X] · Brackets: [federal and state, as the platform returned them]
 
-## 6. Proposed Agenda (40 min)
+## 6. Proposed Agenda ([30–45] min)
 1. Welcome & life updates — 5 min
 2. Markets in plain English — 5 min
 3. Your portfolio: performance & positioning — 10 min

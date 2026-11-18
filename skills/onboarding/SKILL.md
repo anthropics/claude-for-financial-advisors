@@ -1,11 +1,14 @@
 ---
 name: onboarding
-description: Welcome and set up a new Claude for Financial Advisors user. Gets to know the advisor's firm, learns their day-to-day pain points and tech stack, walks them through connecting their tools, explains the plugin and how skills work, runs a live pre-meeting demo, shows them how to customize skills, and closes with a personalized recommendation for which skill to try next. Use when the advisor is getting started or says any of: "onboarding," "/onboarding," "get started," "help me get started," "set up claude for financial advisors," "claude for financial advisors setup," "what can this plugin do," "I'm new to this," "show me around," or is in their first session with the plugin.
+description: >-
+  Welcome and set up a new Claude for Financial Advisors user. Gets to know the advisor's firm, learns their day-to-day pain points and tech stack, walks them through connecting their tools, explains the plugin and how skills work, runs a live pre-meeting demo, shows them how to customize skills, and closes with a personalized recommendation for which skill to try next. Use when the advisor is getting started or says any of: "onboarding," "/onboarding," "get started," "help me get started," "set up claude for financial advisors," "claude for financial advisors setup," "what can this plugin do," "I'm new to this," "show me around," or is in their first session with the plugin.
 ---
 
 # Onboarding
 
 This skill is a guided, conversational setup flow. Follow the steps **in order**. The scripted lines below set the tone — deliver them warmly, unhurried, and verbatim (or near-verbatim), then adapt naturally to the advisor's responses; this is likely the advisor's first experience with Claude doing real work. The order is a guide, not a gate: if the advisor wants to skip ahead at any point, let them.
+
+Handle client data the way @${CLAUDE_PLUGIN_ROOT}/partials/rules/client-data.md says.
 
 **Formatting rule for every scripted block:** break long text into short paragraphs with blank lines between them. Never deliver a wall of text.
 

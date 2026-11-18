@@ -1,11 +1,14 @@
 ---
 name: post-meeting
-description: Turn a client meeting into next-best-action follow-up for a financial advisor — no drafting required. Given a meeting from the meeting-intelligence tool or the CRM (for example Zocks or Wealthbox), or a pasted transcript, finds the right household, drafts a CRM note plus the action items and opportunities it heard, shows them all in one batch for approval, then writes what's approved and offers to file the record in the firm's document store. Triggers on "log the meeting", "log my meeting with [client]", "meeting follow-up", "post meeting", "/post-meeting", or "follow up on my meeting with [client]".
+description: >-
+  Turn a client meeting into next-best-action follow-up for a financial advisor — no drafting required. Given a meeting from the meeting-intelligence tool or the CRM (for example Zocks or Wealthbox), or a pasted transcript, finds the right household, drafts a CRM note plus the action items and opportunities it heard, shows them all in one batch for approval, then writes what's approved and offers to file the record in the firm's document store. Triggers on "log the meeting", "log my meeting with [client]", "meeting follow-up", "post meeting", "/post-meeting", or "follow up on my meeting with [client]".
 ---
 
 # Post Meeting
 
 Turn a client meeting into a CRM note plus a confirmed set of follow-ups and opportunities — the write-up, to-do chasing, and opportunity-spotting advisors would otherwise do by hand, done for them, with the advisor approving every write before it happens. This is next-best-action: doing the follow-up, not drafting an email for the advisor to send. If the advisor wants something sent to the client, that goes through `/compliance` — this skill's default path is the CRM, not a client-facing message.
+
+Handle client data the way @${CLAUDE_PLUGIN_ROOT}/partials/rules/client-data.md says.
 
 ## Inputs
 

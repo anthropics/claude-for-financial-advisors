@@ -20,6 +20,7 @@ Details: [what drifted, by how much, and why — market movement, flows, etc.]
 | | | | | [from the draft plan's What it addresses] | [only as the advisor stated it in this conversation — otherwise "— advisor to complete"] |
 
 ## 4. Tax & Cost Considerations
+- Tax-advantaged accounts rebalanced first: [yes | the household has none]
 - Estimated realized gains/losses (ST / LT): [ ]
 - Wash sale check performed across household accounts: [yes/no — notes]
 - Transaction costs: [ ]
