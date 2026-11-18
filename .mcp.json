@@ -112,6 +112,10 @@
       "type": "http",
       "url": "https://api.conquest-cloud.com/mcp"
     },
+    "cognicor": {
+      "type": "http",
+      "url": "https://mcp.cognicor.com/mcp"
+    },
     "finny": {
       "type": "http",
       "url": "https://mcp.finny.com/mcp"
