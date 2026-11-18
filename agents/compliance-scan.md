@@ -113,6 +113,10 @@ missed one goes out to clients.
 
 ## What to return
 
+Never copy a password or login, a Social Security, tax ID or driver's licence
+number, or a full account or routing number into what you return. Refer to an
+account by its type and last four digits.
+
 ```
 ## Compliance scan
 advertisement determination: YES | NO | CANNOT DETERMINE — [one clause of reasoning]
@@ -131,3 +135,11 @@ clean passes: [which checks found nothing]
 Quote passages **verbatim** — the reviewer has to find them in the source, and a
 paraphrase makes that impossible. Never suggest a rewrite; never write a
 disclosure; never state that anything "is compliant".
+
+The one exception to verbatim is a password or login, a Social Security, tax
+ID or driver's licence number, or a full bank account or routing number in the
+content: quote that passage with a password or login replaced by `[redacted]`
+and any number masked to its last four characters, and list it as its own row,
+**Fail**, "client identifier in client-facing content". A full account number
+going to a CPA, attorney or other professional whose written authorization on
+file covers that account is a **Flag** instead, for the reviewer to confirm.

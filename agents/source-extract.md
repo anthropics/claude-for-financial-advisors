@@ -205,6 +205,10 @@ is a usable result; a plausible invented one is not.
 
 ## What to return
 
+Never copy a password or login, a Social Security, tax ID or driver's licence
+number, or a full account or routing number into what you return. Refer to an
+account by its type and last four digits.
+
 A single markdown block, nothing before or after it:
 
 ```

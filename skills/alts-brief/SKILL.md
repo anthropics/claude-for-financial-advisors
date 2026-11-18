@@ -1,11 +1,14 @@
 ---
 name: alts-brief
-description: Prepare a meeting-ready alternative-investments brief for a client, household, IRA, trust, or named account before a review: pulls the alts book from the alts platforms, iCapital, Addepar and CAIS (positions, NAV vs. commitment, called and unfunded amounts, contributions/distributions/subscriptions/redemptions, lockups, and the platform's own IRR/TVPI/DPI/RVPI) and sits it beside the liquid book and IPS target from the portfolio platform (Orion Connect, Addepar or Envestnet), then flags cash needed for capital calls, alts % vs. target, concentration, unfunded concentration, and stale as-of data. Cites the source platform on every figure. Does not recommend funds, forecast NAVs/IRRs, or simulate allocation changes. Triggers on "alts brief", "/alts-brief", "prep the [client]'s alts review", "what's going on with [client]'s PE/private investments", "how's [client] doing on their alts", or any request to review a household's alternative investment positions before a meeting.
+description: >-
+  Prepare a meeting-ready alternative-investments brief for a client, household, IRA, trust, or named account before a review: pulls the alts book from the alts platforms, iCapital, Addepar and CAIS (positions, NAV vs. commitment, called and unfunded amounts, contributions/distributions/subscriptions/redemptions, lockups, and the platform's own IRR/TVPI/DPI/RVPI) and sits it beside the liquid book and IPS target from the portfolio platform (Orion Connect, Addepar or Envestnet), then flags cash needed for capital calls, alts % vs. target, concentration, unfunded concentration, and stale as-of data. Cites the source platform on every figure. Does not recommend funds, forecast NAVs/IRRs, or simulate allocation changes. Triggers on "alts brief", "/alts-brief", "prep the [client]'s alts review", "what's going on with [client]'s PE/private investments", "how's [client] doing on their alts", or any request to review a household's alternative investment positions before a meeting.
 ---
 
 # Alts Brief
 
 Give an advisor a clear, meeting-ready read on a household's alternative investments: what's on platform, how it's tracking against their goals, and what needs attention — sitting alongside the liquid book so the advisor can see the whole household, not just the alts sleeve in isolation.
+
+Handle client data the way @${CLAUDE_PLUGIN_ROOT}/partials/rules/client-data.md says.
 
 ## Inputs
 

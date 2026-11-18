@@ -1,11 +1,14 @@
 ---
 name: prospect-intake
-description: Start a new prospect's intake, with or without their files in hand — a request naming a new prospect and attaching no documents is a normal starting point, because Step 1 searches the connected tools or asks the advisor to upload. Cleans and normalizes their account files (statements, exports, screenshots) into a consolidated view, then hands back a plain-English prospect summary, a detailed analyst handoff the full proposal gets built from, and a friendly "what to expect" memo, offered as an email draft on approval. Does not produce the proposal, recommend an allocation, or quote fees. Triggers on "prospect intake", "/prospect-intake", "new prospect intake", "clean up [prospect]'s statements", "process [prospect]'s files", "what to expect note for [prospect]" — and on how an advisor raises a new prospect before any file exists: "I met with a potential client/customer", "[name] is interested in becoming a client", "I have a new prospect", "how should I proceed with [name]".
+description: >-
+  Start a new prospect's intake, with or without their files in hand — a request naming a new prospect and attaching no documents is a normal starting point, because Step 1 searches the connected tools or asks the advisor to upload. Cleans and normalizes their account files (statements, exports, screenshots) into a consolidated view, then hands back a plain-English prospect summary, a detailed analyst handoff the full proposal gets built from, and a friendly "what to expect" memo, offered as an email draft on approval. Does not produce the proposal, recommend an allocation, or quote fees. Triggers on "prospect intake", "/prospect-intake", "new prospect intake", "clean up [prospect]'s statements", "process [prospect]'s files", "what to expect note for [prospect]" — and on how an advisor raises a new prospect before any file exists: "I met with a potential client/customer", "[name] is interested in becoming a client", "I have a new prospect", "how should I proceed with [name]".
 ---
 
 # Prospect Intake
 
 Turn the pile of statements a prospect hands over into something usable — a clean summary they can read, a clean handoff the analyst team can build a full proposal from, and a warm note that keeps the prospect engaged while that happens.
+
+Handle client data the way @${CLAUDE_PLUGIN_ROOT}/partials/rules/client-data.md says.
 
 This skill is the **intake step**, not the proposal itself. The full investment proposal (proposed allocation, expected outcomes, fees, transition plan) is built by the firm's analysts from the detailed handoff this skill produces — it is not generated here.
 
@@ -58,7 +61,7 @@ Never fabricate a figure that isn't legible or present — mark it "— not show
 
 ## Step 3: The Three Outputs
 
-Write each as its own markdown file, clearly labeled — the prospect summary (A), the analyst handoff (B) and the what-to-expect memo (C) — using the templates in this skill's `templates/` folder as the skeleton. Fill every field; where data wasn't shown on any file provided, mark it "— not shown on file provided" rather than leaving it blank silently.
+Write each as its own markdown file, named so the filename says which output it is — the prospect summary (A), the analyst handoff (B) and the what-to-expect memo (C). Read each output's template in this skill's `templates/` folder before you write that output. The template is its skeleton: keep its section headings and line labels as written. Fill every field; where data wasn't shown on any file provided, mark it "— not shown on file provided" rather than leaving it blank silently.
 
 **Inferred vs. Read applies to every figure in all three outputs**, not just the Analyst Handoff below — any number in the Prospect Summary or What-to-Expect memo that was computed, assumed, or taken from a prior conversation rather than read directly off a file needs the same flag.
 

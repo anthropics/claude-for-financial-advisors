@@ -117,6 +117,10 @@ number you can't actually cite back to the source is worse than no finding.
 
 ## What to return
 
+Never copy a password or login, a Social Security, tax ID or driver's licence
+number, or a full account or routing number into what you return. Refer to an
+account by its type and last four digits.
+
 ```
 ## [identity | claim] — [system]
 status: OK | NOT CONNECTED | INCONCLUSIVE | CANNOT CALL | PARTIAL
